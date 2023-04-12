@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-21!!o@z!@r#%+zx9#p4i$ffexmnh1lhu60=(t6x@91t=yq@k35
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -77,10 +77,20 @@ WSGI_APPLICATION = "hack2023.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+#DATABASES = {
+#    "default": {
+#        "ENGINE": "django.db.backends.sqlite3",
+#        "NAME": BASE_DIR / "db.sqlite3",
+#    }
+#}
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'mydb',
+        'USER': 'admin',
+        'PASSWORD': '12345678',
+        'HOST':'hackathonapp-db.cfxj0ajszti7.us-east-1.rds.amazonaws.com',
+        'PORT':'3306',
     }
 }
 

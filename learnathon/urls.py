@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import home, rooms, review_page, review_room_attendance, student_form, review_score_post, review_score_post_form
+from .views import home, rooms, review_page, review_room_attendance, student_form, review_score_post, review_score_post_form, student_score_form, leaderboard, update_attendance_absent
 
 urlpatterns = [
     path('', home, name='learnathon_home'),
@@ -8,5 +8,8 @@ urlpatterns = [
     path('rooms/attendance/<int:number>/<str:room_no>', review_room_attendance, name='learnathon_review_room_attendance'),
     path('rooms/review/<int:review_no>/<str:room_no>', review_score_post, name='learnathon_review_score_post'),
     path('rooms/review/form/<int:review_no>/<str:team_no>', review_score_post_form, name='learnathon_review_score_post_form'),
-    path('student_form/', student_form, name='student_form')
+    path('student_form/', student_form, name='student_form'),
+    path('student_score_form/', student_score_form, name='student_score_form'),
+    path('leaderboard/', leaderboard, name='leaderboard'),
+    path('update_absent/', update_attendance_absent, name='update'),
 ]

@@ -21,7 +21,7 @@ class AppImage(models.Model):
     
 
 class BusinessSystem(models.Model):
-    name = models.CharField(max_length=250, unique=True)
+    name = models.CharField(max_length=250)
 
     def __str__(self):
         return self.name
@@ -142,6 +142,13 @@ class Student(models.Model):
             return '0%'    
         return str((attended / total) * 100) + '%'
 
+    @property
+    def score(self):
+        srcs = StudentReviewScore.objects.filter(student=self)
+        score = 0
+        for s in srcs:
+            score += s.score
+        return score
     def __str__(self):
         return str(self.registration_no)
 

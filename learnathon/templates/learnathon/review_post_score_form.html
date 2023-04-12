@@ -16,7 +16,7 @@
         {% for instruction in instructions %}
         {{instruction}}<br />
         {% endfor %}<br />
-        <b>Questions to be asked: </b><br />
+        <b>Rubrics: </b><br />
         {% for question in questions %}
         {{question}}<br />
         {% endfor %}<br />
@@ -32,8 +32,8 @@
       {% for student_score in student_review_scores %}
       <div class="row my-4">
         <div class="col">
-          <div class="d-flex"><div><label for="score_{{student_score.student.registration_no}}">Score for {{student_score.student.registration_no}}</label></div></div>
-          <input required id="score_{{student_score.student.registration_no}}" type="number" class="form-control" name="score_{{student_score.student.registration_no}}" value="{{student_score.score}}" placeholder="Enter score for {{student_score.student.registration_no}}...">
+          <div class="d-flex"><div><label for="score_{{student_score.student.registration_no}}">Score for {{student_score.student.registration_no}} <b>(Out of 10)</b></label></div></div>
+          <input min="0" max="10"  required id="score_{{student_score.student.registration_no}}" type="number" class="form-control" name="score_{{student_score.student.registration_no}}" value="{{student_score.score}}" placeholder="Enter score for {{student_score.student.registration_no}}...">
         </div>
         <div class="col">
           <div class="d-flex"><div><label for="comments_{{student_score.student.registration_no}}">Comments for {{student_score.student.registration_no}}</label></div></div>

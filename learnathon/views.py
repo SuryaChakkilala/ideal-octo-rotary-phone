@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from pages.models import Review, Room, TeamReviewRoom, Student, Team, StudentReviewAttendance, StudentReviewScore, AppImage
 from django.contrib import messages
 from django.urls import reverse
+from django.http import HttpResponse
 
 # Create your views here.
 def home(request):
@@ -72,6 +73,17 @@ def student_form(request):
     context = {}
     return render(request, 'learnathon/student_form.html', context=context)
 
+def student_score_form(request):
+    if request.method == "POST":
+        reg_no = request.POST['reg_no']
+        student = Student.objects.filter(registration_no=reg_no).first()
+        scores = StudentReviewScore.objects.filter(student=student).order_by('review__number')
+
+        context = {'scores': scores, 'student': student}
+        return render(request, 'learnathon/student_score_form.html', context=context)
+    context = {}
+    return render(request, 'learnathon/student_score_form.html', context=context)
+
 def review_score_post(request, review_no, room_no):
     if not request.user.is_authenticated:
         return redirect('login')
@@ -124,3 +136,47 @@ def report(request):
         return redirect('learnathon_home')
     context = {}
     return render(request, 'learnathon/report.html', context=context)
+
+#def leaderboard(request):
+#    stus = sorted(Student.objects.all(), key=lambda t: -t.score)
+#    students = []
+#    for i in stus[:100]:
+ #       students.append(i)
+#    mv = students[99].score
+#    for i in stus[100:]:
+#        if i.score == mv:
+#            students.append(i)
+#        else:
+#            break
+#    context = {'students': students}
+#    return render(request, 'learnathon/leaderboard.html', context=context)
+def leaderboard(request):
+    stus = Student.objects.all()
+    d = {}
+    mv = -1
+    for i in stus:
+        if i.score not in d:
+            d[i.score] = set()
+        d[i.score].add(i)
+        mv = max(mv, i.score)
+    students = []
+    curr = 1
+    while len(students) < 100 and mv >= 0:
+        for i in d[mv]:
+            students.append((curr, i))
+        mv -= 1
+        curr += 1
+    context = {'students': students}
+    return render(request, 'learnathon/leaderboard.html', context=context)
+
+
+def update_attendance_absent(request):
+    
+    reviews = Review.objects.all()
+    for review in reviews:
+        students_attendance = StudentReviewAttendance.objects.filter(absent=True, review=review)
+        students_list = []
+        for s in students_attendance:
+            students_list.append(s.student)
+        student_review_marks = StudentReviewScore.objects.filter(student__in=students_list, review=review).update(score=0)
+    return HttpResponse('done')

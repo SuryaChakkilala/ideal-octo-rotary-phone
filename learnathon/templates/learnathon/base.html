@@ -261,7 +261,13 @@
             </li>
           {% endif %}
           <li class="nav-item">
-            <a class="nav-link" style="color: #142936;" href="{% url 'student_form' %}"><i class="bi bi-person-badge-fill" style="color:blue"></i>&nbsp;Student</a>
+            <a class="nav-link" style="color: #142936;" href="{% url 'student_form' %}"><i class="bi bi-person-badge-fill" style="color:blue"></i>&nbsp;Student Attendance</a>
+        </li>
+	<li class="nav-item">
+            <a class="nav-link" style="color: #142936;" href="{% url 'student_score_form' %}"><i class="bi bi-person-badge-fill" style="color:blue"></i>&nbsp;Student Scores</a>
+        </li>
+	<li class="nav-item">
+            <a class="nav-link" style="color: #142936;" href="{% url 'leaderboard' %}"><i class="bi bi-list-ol" style="color:blue"></i>&nbsp;Leaderboard</a>
         </li>
         </ul>
       </div>

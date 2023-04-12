@@ -36,8 +36,8 @@ class ReviewAdmin(ImportExportModelAdmin):
 
 @admin.register(TeamReviewRoom)
 class TeamReviewRoomAdmin(ImportExportModelAdmin):
-    search_fields = ('team_name', 'review__number', )
-    list_filter = ('team__course', 'team__business_system')
+    search_fields = ('team__name', 'review__number', )
+    list_filter = ('team__course', 'team__business_system', 'room')
     pass
 
 @admin.register(BusinessSystem)

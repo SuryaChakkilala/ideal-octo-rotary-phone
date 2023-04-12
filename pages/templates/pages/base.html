@@ -207,6 +207,11 @@
             <li class="nav-item">
               <a class="nav-link" style="color: #142936;" href="{% url 'learnathon_home' %}"><i class="bi bi-layout-wtf" style="color:#0a7a27"></i>&nbsp;Learnathon</a>
             </li>
+            {% if user.is_superuser %}
+            <li class="nav-item">
+              <a class="nav-link" style="color: #142936;" href="{% url 'report-form' %}"><i class="bi bi-download" style="color:#0a7a27"></i>&nbsp;GenerateReport</a>
+            </li>
+            {% endif %}
 
           <li class="nav-item">
             <a class="nav-link" style="color: #142936;" href="#"><i class="bi bi-robot" style="color:#0a7a27"></i>&nbsp;Hackathon</a>
